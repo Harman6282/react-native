@@ -1,10 +1,9 @@
 import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
 
 export default function Index() {
   return (
     <View style={style.View}>
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>Harman app.</Text>
     </View>
   );
 }
