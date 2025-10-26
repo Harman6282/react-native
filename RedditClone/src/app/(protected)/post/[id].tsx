@@ -12,7 +12,6 @@ export default function DetailedPost() {
   }
   return (
     <View>
-      <Text>Post id is {id}</Text>
       <PostListItem post={detailedPost} isDetailedPost />
     </View>
   );
