@@ -12,13 +12,23 @@ import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import groups from "../../../assets/data/groups.json";
+import { useSetAtom } from "jotai";
+import { selectedGroupAtom } from "../../atoms";
+import { Group } from "../../types";
 
 export default function groupSelector() {
   const [searchValue, setSearchValue] = useState<string>("");
+  const setGroup = useSetAtom(selectedGroupAtom);
 
   const filteredGroups = groups.filter((group) =>
     group.name.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
   );
+
+  const onGroupSeleted = (group: Group) => {
+    setGroup(group);
+    router.back();
+  };
+
   return (
     <SafeAreaView style={{ marginHorizontal: 10 }}>
       <View
@@ -71,6 +81,7 @@ export default function groupSelector() {
         data={filteredGroups}
         renderItem={({ item }) => (
           <Pressable
+            onPress={() => setGroup(item)}
             style={{
               flexDirection: "row",
               alignItems: "center",

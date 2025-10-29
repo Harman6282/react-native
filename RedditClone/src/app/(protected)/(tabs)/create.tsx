@@ -10,13 +10,17 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { selectedGroupAtom } from "../../../atoms";
+import { useAtom } from "jotai";
 
 export default function CreateScreen() {
   const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [bodyText, setBodyText] = useState<string>("");
+  const [group, setGroup] = useAtom(selectedGroupAtom);
 
   const goBack = () => {
     setTitle("");
@@ -53,8 +57,20 @@ export default function CreateScreen() {
           {/* COMMUNITY SELECTOR */}
           <Link href={"/groupSelector"} asChild>
             <Pressable style={styles.communityContainer}>
-              <Text style={{ fontWeight: "600" }}>Select a community</Text>
-              <Text style={styles.rStyles}>r/</Text>
+              {group ? (
+                <>
+                  <Image
+                    source={{ uri: group.image }}
+                    style={{ width: 20, height: 20, borderRadius: 10}}
+                  />
+                  <Text>{group.name}</Text>
+                </>
+              ) : (
+                <>
+                  <Text style={styles.rStyles}>r/</Text>
+                  <Text style={{ fontWeight: "600" }}>Select a community</Text>
+                </>
+              )}
             </Pressable>
           </Link>
 
